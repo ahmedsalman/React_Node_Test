@@ -29,7 +29,7 @@ const View = () => {
     const fetchData = async () => {
         setIsLoding(true)
         let response = await getApi('api/meeting/view/', param.id)
-        setData(response?.data);
+        setData(response?.data?.data);
         setIsLoding(false)
     }
 
@@ -144,23 +144,23 @@ const View = () => {
                                         <Text fontSize="sm" fontWeight="bold" color={'blackAlpha.900'}> Attendes </Text>
                                         {data?.related === 'Contact' && contactAccess?.view ? data?.attendes && data?.attendes.map((item) => {
                                             return (
-                                                <Link to={`/contactView/${item._id}`}>
+                                                <Link to={`/contactView/${item._id}`} key={item._id}>
                                                     <Text color='brand.600' sx={{ '&:hover': { color: 'blue.500', textDecoration: 'underline' } }}>{item.firstName + ' ' + item.lastName}</Text>
                                                 </Link>
                                             )
                                         }) : data?.related === 'Lead' && leadAccess?.view ? data?.attendesLead && data?.attendesLead.map((item) => {
                                             return (
-                                                <Link to={`/leadView/${item._id}`}>
+                                                <Link to={`/leadView/${item._id}`} key={item._id}>
                                                     <Text color='brand.600' sx={{ '&:hover': { color: 'blue.500', textDecoration: 'underline' } }}>{item.leadName}</Text>
                                                 </Link>
                                             )
                                         }) : data?.related === 'contact' ? data?.attendes && data?.attendes.map((item) => {
                                             return (
-                                                <Text color='blackAlpha.900' >{item.firstName + ' ' + item.lastName}</Text>
+                                                <Text color='blackAlpha.900' key={item._id}>{item.firstName + ' ' + item.lastName}</Text>
                                             )
                                         }) : data?.related === 'lead' ? data?.attendesLead && data?.attendesLead.map((item) => {
                                             return (
-                                                <Text color='blackAlpha.900' >{item.leadName}</Text>
+                                                <Text color='blackAlpha.900' key={item._id}>{item.leadName}</Text>
                                             )
                                         }) : '-'}
                                     </GridItem>
